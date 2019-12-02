@@ -1,0 +1,16 @@
+F1_Score_0 1
+F1_Score_1 1
+F1_Score_2 1
+F1_Score_3 1
+F1_Score_4 1
+F1_Score_5 1
+F1_Score_6 0
+F1_Score_7 1
+F1_Score_8 1
+F1_Score_9 1
+F1_Score_10 0
+F1_Score_11 0
+F1_Score_12 0
+F1_Score_13 1
+F1_Score_14 1
+F1_Score_15 1
