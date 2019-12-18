@@ -28,8 +28,14 @@ CascadeClassifier cascade;
 /** @function main */
 int main( int argc, const char** argv )
 {
-       // 1. Read Input Image
-	Mat frame = imread("dart15.jpg", CV_LOAD_IMAGE_COLOR);
+  // 1. Read Input Image
+	int imageNumber;
+	cin >> imageNumber;
+	stringstream ss;
+	ss << imageNumber;
+	string str = ss.str();
+	string toRead = "dart_img/dart" + str + ".jpg";
+	Mat frame = imread(toRead, CV_LOAD_IMAGE_COLOR);
 
 	// 2. Load the Strong Classifier in a structure called `Cascade'
 	if( !cascade.load( cascade_name ) ){ printf("--(!)Error loading\n"); return -1; };
@@ -53,7 +59,7 @@ void detectAndDisplay( Mat frame )
 	cvtColor( frame, frame_gray, CV_BGR2GRAY );
 	equalizeHist( frame_gray, frame_gray );
 
-	// 2. Perform Viola-Jones Object Detection 
+	// 2. Perform Viola-Jones Object Detection
 	cascade.detectMultiScale( frame_gray, faces, 1.1, 1, 0|CV_HAAR_SCALE_IMAGE, Size(50, 50), Size(500,500) );
 
        // 3. Print number of Faces found

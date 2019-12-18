@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <opencv2/opencv.hpp>        
-#include <opencv2/core/core.hpp>    
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui_c.h>
 #include "opencv2/objdetect/objdetect_c.h"
 #include "opencv2/highgui/highgui_c.h"
@@ -51,7 +51,7 @@ tuple<int, int> findCentreOfBox(Rect box) {
 	int db = b / 2;
 
 	tuple<int, int> centre = make_tuple(box.x + da, box.y + db);
-	
+
 	return centre;
 }
 
@@ -256,10 +256,10 @@ vector<tuple<int, int> > houghSpace(Mat magnitude, Mat gradient, int threshold, 
 	houghSpace.convertTo(newHough, CV_8U, 255.0 / (max - min), -255.0*min / (max - min));
 
 	string houghName = "Hough_space/houghSpace" + imageName + ".jpg";
-	imwrite(houghName, newHough);
+	imshow(houghName, newHough);
 
 	string magName = "magnitude/magnitudeImage" + imageName + ".jpg";
-	imwrite(magName, magnitude);
+	imshow(magName, magnitude);
 
 	return bestCircles;
 }
@@ -272,7 +272,7 @@ vector<Rect> detectDartboards(Mat frame, Mat magnitude, Mat direction, string im
 	cvtColor(frame, frame_gray, CV_BGR2GRAY);
 	equalizeHist(frame_gray, frame_gray);
 
-	// 2. Perform Viola-Jones Object Detection 
+	// 2. Perform Viola-Jones Object Detection
 	cascade.detectMultiScale(frame_gray, dartboards, 1.1, 1, 0 | CV_HAAR_SCALE_IMAGE, Size(50, 50), Size(500, 500));
 
 	// 3. Perform the Hough Transform to find the best fitting circles in the image.
@@ -306,7 +306,8 @@ vector<Rect> detectDartboards(Mat frame, Mat magnitude, Mat direction, string im
 		}
 	}
 
-	string violaName = "result/improvedViola" + imageName + ".jpg";
+	string violaName = "detected.jpg";
+	imshow(violaName, frame);
 	imwrite(violaName, frame);
 
 	return improvedDartboards;
@@ -409,17 +410,22 @@ int mainViola(string imageName) {
 
 
 int main() {
-	std::fstream outputFile;
-    outputFile.open( "outputFile.txt", std::ios::out ) ;
-	for (int i = 0; i < 10; i++) {
+	//std::fstream outputFile;
+    //outputFile.open( "outputFile.txt", std::ios::out ) ;
+	/*for (int i = 0; i < 10; i++) {
 		cout << "Dart " << i << "\n";
 		stringstream ss;
 		ss << i;
 		string str = ss.str();
-		outputFile << "F1_Score_" + str << mainViola(str)<< endl;
-		
-	}
+		//outputFile << "F1_Score_" + str << mainViola(str)<< endl;
 
-	outputFile.close( );
+	}*/
+	int imageNumber;
+  cin >> imageNumber;
+  stringstream ss;
+  ss << imageNumber;
+  string str = ss.str();
+  mainViola(str);
+	//outputFile.close( );
 	return 0;
 }
